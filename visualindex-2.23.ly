@@ -14,7 +14,7 @@
 % - Links are not clickable in SVG output
 
 
-\version "2.23.6"
+\version "2.23.8"
 
 #(set-default-paper-size "a4")
 % #(set-default-paper-size "letter")
@@ -395,6 +395,7 @@ addLink =
     \addLink Staff.PianoPedalBracket "piano#piano-pedals"
     \addLink Staff.SostenutoPedal "piano#piano-pedals"
     \addLink Staff.SustainPedal "piano#piano-pedals"
+    \addLink Staff.StaffEllipsis "skipping-corrected-music"
     \addLink Staff.TimeSignature "displaying-rhythms#time-signature"
     \addLink Staff.UnaCordaPedal "piano#piano-pedals"
 
@@ -422,13 +423,21 @@ addLink =
       \doclink "TimeSignature"
       \engraverlink "Time_signature" "s" }
     \key g \major
-    a,1
+    a,2
+
+    \set Score.skipTypesetting = ##t
+    a2
+    \set Score.skipTypesetting = ##f
+    <>
+    \balloonGrobText StaffEllipsis #'(0 . 3) \markup \center-column {
+      \doclink "StaffEllipsis"
+      \engraverlink "Skip_typesetting" "Skip_typesetting" }
 
     \balloonGrobText BarLine #'(-1 . -1) \markup \line {
       \doclink "BarLine"
       \engraverlink "Bar" "Bar" }
 
-    \balloonGrobText KeyCancellation #'(0 . 1.5) \markup
+    \balloonGrobText KeyCancellation #'(4 . 2) \markup
       \doclink "KeyCancellation"
     \key c \major
 
@@ -440,7 +449,7 @@ addLink =
     es2
 
     \once \override Score.BalloonText.Y-attachment = #0.5
-    \balloonGrobText AccidentalCautionary #'(0.5 . 1) \markup
+    \balloonGrobText AccidentalCautionary #'(0.5 . 0.5) \markup
       \doclink "AccidentalCautionary"
     es'?2
 
@@ -451,10 +460,10 @@ addLink =
     a,1\tweak X-offset #-2 \sostenutoOn
     \after 2. \sostenutoOff a1
 
-    \balloonGrobText UnaCordaPedal #'(0 . -4) \markup \center-column {
+    \balloonGrobText UnaCordaPedal #'(0 . -3.5) \markup \center-column {
       \doclink "UnaCordaPedal"
       \doclink "UnaCordaPedalLineSpanner" }
-    \balloonGrobText AccidentalSuggestion #'(-1 . 2.5) \markup
+    \balloonGrobText AccidentalSuggestion #'(-1 . 3) \markup
       \doclink "AccidentalSuggestion"
     \set suggestAccidentals = ##t
     ais1\tweak X-offset #0.5 \unaCorda
@@ -871,11 +880,11 @@ addLink =
   \column {
     \vspace #1.5
     \contextlink "ChordNames"
-    \vspace #0.5
+    \vspace #1
     \line {
       \contextlink "FiguredBass"
       \engraverlink "Figured_bass" "s" }
-    \vspace #2
+    \vspace #2.5
     \contextlink "Lyrics" } }
 
 \score {
@@ -891,11 +900,11 @@ addLink =
 
     \new Staff \with {
       \override InstrumentName.X-offset = #-32
-      \override InstrumentName.Y-offset = #-7
+      \override InstrumentName.Y-offset = #-9
       instrumentName = \markup \column {
         \doclink "BassFigureAlignment"
         \doclink "BassFigureAlignmentPositioning"
-        \vspace #1.7
+        \vspace #2.1
         \doclink "LyricSpace" }
 
     } \new Voice = "voice" \relative c' {
@@ -1013,12 +1022,17 @@ addLink =
 %%% MensuralStaff, MensuralVoice, PetrucciStaff, PetrucciVoice, %%%
 %%% VaticanaStaff %%%
 
-% Custos, Episema, MensuralLigature, VaticanaLigature
+% Custos, Episema, MensuralLigature, VaticanaLigature, SignumRepetitionis
 
 
 %%% KievanVoice %%%
 
 % KievanLigature
+
+
+%%% GregorianTranscriptionStaff, GregorianTranscriptionLyrics %%%
+
+% LyricRepeatCount
 
 
 %%% FretBoard %%%
